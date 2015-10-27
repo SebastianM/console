@@ -1,0 +1,39 @@
+---
+  apiVersion: "v1"
+  kind: "ReplicationController"
+  metadata: 
+    labels: 
+      name: "kubernetes-console"
+    name: "kubernetes-console"
+    namespace: "kube-system"
+  spec: 
+    replicas: 1
+    selector: 
+      name: "kubernetes-console"
+    template: 
+      metadata: 
+        labels: 
+          name: "kubernetes-console"
+      spec: 
+        containers:
+          -
+            image: "gcr.io/static-pottery-460/kubernetes-console:latest"
+            name: "kubernetes-console"
+            imagePullPolicy: Always
+
+---
+  apiVersion: "v1"
+  kind: "Service"
+  metadata: 
+    labels: 
+      name: "kubernetes-console"
+    name: "kubernetes-console"
+    namespace: "kube-system"
+  spec:
+    type: "LoadBalancer"
+    ports: 
+      - 
+        port: 80
+        targetPort: 8080
+    selector: 
+      name: "kubernetes-console"

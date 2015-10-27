@@ -35,7 +35,6 @@ const closureCompilerBaseConfig = {
     angular_pass: null,
     closure_entry_point: 'module$src$app$frontend$index_module',
     export_local_property_definitions: null,
-    generate_exports: null,
     js_module_root: conf.paths.frontendSrc,
     language_in: 'ECMASCRIPT6_STRICT',
     language_out: 'ECMASCRIPT3',
@@ -95,6 +94,7 @@ gulp.task('scripts', ['create-serve-folders'], function() {
               'google-closure-compiler/contrib/externs/angular-1.4-q_templated.js'),
           path.join(conf.paths.externs, '**/*.js'),
         ],
+        generate_exports: null,
         // Enable all compiler checks by default and make them errors.
         jscomp_error: '*',
         // Disable checks that are not applicable to the project.
