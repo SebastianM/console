@@ -24,17 +24,23 @@ import conf from './conf';
 
 
 /**
+ * Browser sync instance that serves the application.
+ */
+export const browserSyncInstance = browserSync.create();
+
+
+/**
  * Initializes BrowserSync tool. Files are server from baseDir directory list.
  *
  * @param {!Array<string>|string} baseDir
  */
 function browserSyncInit(baseDir) {
   // Enable custom support for Angular apps, e.g., history management.
-  browserSync.use(browserSyncSpa({
+  browserSyncInstance.use(browserSyncSpa({
     selector: '[ng-app]',
   }));
 
-  browserSync.instance = browserSync.init({
+  browserSyncInstance.init({
     startPath: '/',
     server: {
       baseDir: baseDir,
@@ -47,14 +53,27 @@ function browserSyncInit(baseDir) {
 /**
  * Serves the application in development mode.
  */
-gulp.task('serve', ['watch'], function () {
+function serveDevelopmentMode() {
   browserSyncInit([
     conf.paths.serve,
     conf.paths.frontendSrc, // For angular templates to work.
     conf.paths.app, // For assets to work.
     conf.paths.base, // For bower dependencies to work.
-  ]);
-});
+  ]);  
+}
+
+
+/**
+ * Serves the application in development mode. Watches for changes in the source files to rebuild
+ * development artifacts.
+ */
+gulp.task('serve:watch', ['watch'], serveDevelopmentMode);
+
+
+/**
+ * Serves the application in development mode.
+ */
+gulp.task('serve', ['index'], serveDevelopmentMode);
 
 
 /**

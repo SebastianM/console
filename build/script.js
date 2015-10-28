@@ -23,6 +23,7 @@ import gulpMinifyHtml from 'gulp-minify-html';
 import lodash from 'lodash';
 import path from 'path';
 
+import {browserSyncInstance} from './serve';
 import conf from './conf';
 
 

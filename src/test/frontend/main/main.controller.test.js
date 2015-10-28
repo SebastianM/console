@@ -13,14 +13,14 @@
 // limitations under the License.
 
 
-import {MainController} from 'main/main.controller';
+import MainController from 'main/main.controller';
 
 describe('Main controller', () => {
   let vm;
 
-  beforeEach(() => {
-    vm = new MainController();
-  });
+  beforeEach(inject(($timeout) => {
+    vm = new MainController($timeout);
+  }));
 
   it('should do something', () => {
     expect(vm.testValue).toEqual(7);
